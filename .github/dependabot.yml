@@ -22,6 +22,9 @@ updates:
         update-types: ['version-update:semver-major']
       - dependency-name: typescript
         update-types: ['version-update:semver-major']
+      # Onmyo's worker image bakes the Chromium build of one Playwright version, and a worker's
+      # gate fails on any other, so this moves by hand together with its PLAYWRIGHT_VERSION.
+      - dependency-name: playwright
   - package-ecosystem: github-actions
     directory: /
     multi-ecosystem-group: all
