@@ -1,0 +1,85 @@
+{
+  "name": "@yokailabs/ui",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Yokai Labs React component library: a neutral Tailwind v4 theme on Base UI.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles/index.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc && rm -rf dist && tsc -p tsconfig.build.json && mkdir -p dist/styles && cp src/styles/*.css dist/styles/",
+    "lint": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "knip": "knip",
+    "test": "vitest run",
+    "shots": "VITE_SHOTS=1 vitest run --project 'storybook-*'",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build",
+    "prepare": "husky"
+  },
+  "prettier": "@yokailabs/prettier-config",
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{js,mjs,cjs,css,json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19",
+    "tailwindcss": "^4"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.6.1",
+    "@storybook/addon-docs": "^10.6.1",
+    "@storybook/addon-vitest": "^10.6.1",
+    "@storybook/react-vite": "^10.6.1",
+    "@tailwindcss/node": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^24.19.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitest/browser": "^5.0.3",
+    "@vitest/browser-playwright": "^5.0.3",
+    "@yokailabs/eslint-config": "^0.2.0",
+    "@yokailabs/prettier-config": "^0.0.3",
+    "@yokailabs/tsconfig": "^0.1.1",
+    "eslint": "^9.39.5",
+    "husky": "^9.1.7",
+    "knip": "^6.38.0",
+    "lint-staged": "^17.6.0",
+    "playwright": "^1.63.0",
+    "prettier": "^3.9.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "storybook": "^10.6.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.3"
+  }
+}

@@ -1,0 +1,21 @@
+name: CI
+
+# Commits land straight on main, so CI runs on push there. It also runs on pull requests, which
+# onmyo's workers open: their done means CI green.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    uses: Yokai-Lab/github-workflows/.github/workflows/ci-node.yml@v1
+    with:
+      node-version: '24'
+      # Every story runs as a test in a real browser.
+      playwright-browsers: chromium

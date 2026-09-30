@@ -1,0 +1,28 @@
+version: 2
+
+# One weekly PR for every ecosystem, so updates land as one change to review. A major that breaks
+# the build holds up the rest of that week's PR; say so in the PR and pin it back if it does.
+multi-ecosystem-groups:
+  all:
+    schedule:
+      interval: weekly
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    multi-ecosystem-group: all
+    patterns: ['*']
+    ignore:
+      # Tracks the Node major the workspace runs on (24).
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+      # @yokailabs/eslint-config pins eslint ^9 as a peer and bundles typescript-eslint, which
+      # supports a bounded TypeScript range, so both majors move when yokailabs-configs does.
+      - dependency-name: eslint
+        update-types: ['version-update:semver-major']
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
+  - package-ecosystem: github-actions
+    directory: /
+    multi-ecosystem-group: all
+    patterns: ['*']

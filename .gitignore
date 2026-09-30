@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+storybook-static/
+
+# `npm run shots` output, and vitest's default screenshot folder
+shots/
+__screenshots__/
+
+# Test coverage
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript incremental build info
+*.tsbuildinfo
+.tmp/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Editor / OS
+.DS_Store
+*.swp

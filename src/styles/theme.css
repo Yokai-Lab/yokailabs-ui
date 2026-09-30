@@ -1,0 +1,108 @@
+/*
+ * Colour comes in two layers. Primitives (`--yk-*`) are the palette: plain custom properties,
+ * outside @theme, so Tailwind generates no utility for them and no component can reach one.
+ * Semantic tokens (`--color-*`) are the only colours Tailwind knows, so `bg-surface` exists and
+ * `bg-neutral-100` does not. A theme is a mapping from the second layer to the first.
+ *
+ * Each semantic token is registered once, in @theme, and the dark theme only reassigns it under
+ * `.dark`. Never `@theme inline`: it bakes the value into the utility, and `.dark` could no longer
+ * change it at runtime. `static` emits every token, including ones no utility uses yet, so a
+ * story or a consumer can read any of them with `var()`.
+ *
+ * test/contrast.test.ts measures every text and control pairing in both themes.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme static {
+  /* Tailwind's default palette goes, so an off-token class such as `bg-slate-50` generates
+   * nothing and test/classes.test.ts reports it. */
+  --color-*: initial;
+
+  /* Page and containers. */
+  --color-canvas: var(--yk-neutral-0);
+  --color-surface: var(--yk-neutral-0);
+  --color-surface-muted: var(--yk-neutral-100);
+
+  /* Text. */
+  --color-fg: var(--yk-neutral-950);
+  --color-fg-muted: var(--yk-neutral-600);
+
+  /* Lines. `border` is decorative; `border-strong` bounds a control, so it holds 3:1. */
+  --color-border: var(--yk-neutral-200);
+  --color-border-strong: var(--yk-neutral-500);
+
+  /* The main action. Hover moves one step toward the canvas in both themes. */
+  --color-primary: var(--yk-neutral-900);
+  --color-primary-hover: var(--yk-neutral-800);
+  --color-on-primary: var(--yk-neutral-50);
+
+  /* Destructive actions, and error text and borders. */
+  --color-danger: var(--yk-red-600);
+  --color-danger-hover: var(--yk-red-700);
+  --color-on-danger: var(--yk-neutral-0);
+  --color-danger-fg: var(--yk-red-700);
+
+  --color-focus: var(--yk-neutral-950);
+  --color-overlay: var(--yk-scrim-light);
+}
+
+@layer theme {
+  :root {
+    color-scheme: light;
+
+    --yk-neutral-0: oklch(100% 0 0);
+    --yk-neutral-50: oklch(98.5% 0 0);
+    --yk-neutral-100: oklch(97% 0 0);
+    --yk-neutral-200: oklch(92.2% 0 0);
+    --yk-neutral-300: oklch(87% 0 0);
+    --yk-neutral-400: oklch(70.8% 0 0);
+    --yk-neutral-500: oklch(55.6% 0 0);
+    --yk-neutral-600: oklch(43.9% 0 0);
+    --yk-neutral-700: oklch(37.1% 0 0);
+    --yk-neutral-800: oklch(26.9% 0 0);
+    --yk-neutral-900: oklch(20.5% 0 0);
+    --yk-neutral-950: oklch(14.5% 0 0);
+
+    --yk-red-50: oklch(97.1% 0.013 17.38);
+    --yk-red-100: oklch(93.6% 0.032 17.717);
+    --yk-red-200: oklch(88.5% 0.062 18.334);
+    --yk-red-300: oklch(80.8% 0.114 19.571);
+    --yk-red-400: oklch(70.4% 0.191 22.216);
+    --yk-red-500: oklch(63.7% 0.237 25.331);
+    --yk-red-600: oklch(57.7% 0.245 27.325);
+    --yk-red-700: oklch(50.5% 0.213 27.518);
+    --yk-red-800: oklch(44.4% 0.177 26.899);
+    --yk-red-900: oklch(39.6% 0.141 25.723);
+    --yk-red-950: oklch(25.8% 0.092 26.042);
+
+    --yk-scrim-light: oklch(0% 0 0 / 40%);
+    --yk-scrim-dark: oklch(0% 0 0 / 60%);
+  }
+
+  .dark {
+    color-scheme: dark;
+
+    --color-canvas: var(--yk-neutral-950);
+    --color-surface: var(--yk-neutral-900);
+    --color-surface-muted: var(--yk-neutral-800);
+
+    --color-fg: var(--yk-neutral-50);
+    --color-fg-muted: var(--yk-neutral-400);
+
+    --color-border: var(--yk-neutral-800);
+    --color-border-strong: var(--yk-neutral-500);
+
+    --color-primary: var(--yk-neutral-200);
+    --color-primary-hover: var(--yk-neutral-300);
+    --color-on-primary: var(--yk-neutral-900);
+
+    --color-danger: var(--yk-red-600);
+    --color-danger-hover: var(--yk-red-700);
+    --color-on-danger: var(--yk-neutral-0);
+    --color-danger-fg: var(--yk-red-400);
+
+    --color-focus: var(--yk-neutral-50);
+    --color-overlay: var(--yk-scrim-dark);
+  }
+}
