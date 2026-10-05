@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "description": "Yokai Labs React component library: a neutral Tailwind v4 theme on Base UI.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "type": "module",
   "sideEffects": [
     "*.css"
