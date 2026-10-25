@@ -63,7 +63,7 @@
     "@types/node": "^24.19.1",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "@vitest/browser": "^5.0.3",
+    "@vitest/browser": "^5.0.5",
     "@vitest/browser-playwright": "^5.0.3",
     "@yokailabs/eslint-config": "^0.3.0",
     "@yokailabs/prettier-config": "^0.0.3",
